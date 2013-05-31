@@ -1,12 +1,12 @@
 %define		pkgname	happy-meta
 Summary:	Quasi-quoter for Happy parsers
 Name:		ghc-%{pkgname}
-Version:	0.2.0.3
+Version:	0.2.0.5
 Release:	1
 License:	BSD
 Group:		Development/Languages
 Source0:	http://hackage.haskell.org/packages/archive/%{pkgname}/%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	695c2f6ee2d20c9f0284dc076e4695f9
+# Source0-md5:	92a3327788ed9de479df9e32fd32bbd2
 URL:		http://hackage.haskell.org/package/happy-meta/
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-haskell-src-meta
@@ -60,8 +60,9 @@ install -d $RPM_BUILD_ROOT%{_libdir}/%{ghcdir}/package.conf.d
 runhaskell Setup.hs copy --destdir=$RPM_BUILD_ROOT
 
 # work around automatic haddock docs installation
-rm -rf %{name}-%{version}-doc
+%{__rm} -rf %{name}-%{version}-doc
 cp -a $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version} %{name}-%{version}-doc
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
 runhaskell Setup.hs register \
 	--gen-pkg-config=$RPM_BUILD_ROOT/%{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
